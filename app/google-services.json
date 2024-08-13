@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "760344715405",
+    "firebase_url": "https://trialesp32fbproject-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "trialesp32fbproject",
+    "storage_bucket": "trialesp32fbproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760344715405:android:faf80e893db93dfa1d42c4",
+        "android_client_info": {
+          "package_name": "com.example.dine_safe_android"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9T9AuaMod6nJHPbIGmNpkwx0JN6FpZH8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

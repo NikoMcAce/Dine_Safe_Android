@@ -1,19 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- Main Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create Restaurant"
+
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="16dp" />
+
+            <!-- Admin Information -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Admin Information"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingBottom="8dp" />
+
+            <EditText
+                android:id="@+id/adminUserName"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="20px"
+                android:layout_height="wrap_content"
+                android:hint="Admin User Name"
+                android:inputType="text"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <EditText
+                android:id="@+id/adminPassword"
+                android:layout_marginBottom="20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Admin Password"
+                android:inputType="textPassword"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <EditText
+                android:id="@+id/adminName"
+                android:layout_marginBottom="20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name of Admin"
+                android:inputType="text"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <EditText
+                android:id="@+id/restaurantName"
+                android:layout_marginBottom="20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Restaurant Name"
+                android:inputType="text"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <EditText
+                android:id="@+id/addressLine1"
+                android:layout_marginBottom="20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Address Line 1"
+                android:inputType="text"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <EditText
+                android:id="@+id/addressLine2"
+                android:layout_marginBottom="20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Address Line 2"
+                android:inputType="text"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <EditText
+                android:id="@+id/postCode"
+                android:layout_marginBottom="20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Post Code"
+                android:inputType="text"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <EditText
+                android:id="@+id/tableCount"
+                android:layout_marginBottom="20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Table Count"
+                android:inputType="number"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <!-- Waiter Information -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Waiter Information"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingTop="16dp"
+                android:paddingBottom="8dp" />
+
+            <EditText
+                android:id="@+id/waiterName"
+                android:layout_marginBottom="20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name of Waiter"
+                android:inputType="text"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <EditText
+                android:id="@+id/waiterUserName"
+                android:layout_marginBottom="20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username of Waiter"
+                android:inputType="text"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <EditText
+                android:id="@+id/waiterPassword"
+                android:layout_marginBottom="20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password of Waiter"
+                android:inputType="textPassword"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <EditText
+                android:id="@+id/waiterPhone"
+                android:layout_marginBottom="20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone Number of Waiter"
+                android:inputType="phone"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <!-- Chef Information -->
+            <TextView
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:text="Chef Information"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingTop="16dp"
+                android:paddingBottom="8dp" />
+
+            <EditText
+                android:id="@+id/chefName"
+                android:layout_marginBottom="20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name of Chef"
+                android:inputType="text"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <EditText
+                android:id="@+id/chefUserName"
+                android:layout_marginBottom="20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username of Chef"
+                android:inputType="text"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <EditText
+                android:id="@+id/chefPassword"
+                android:layout_marginBottom="20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password of Chef"
+                android:inputType="textPassword"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <EditText
+                android:id="@+id/chefPhone"
+                android:layout_marginBottom="20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone Number of Chef"
+                android:inputType="phone"
+                android:padding="12dp"
+                android:background="@drawable/edit_text_background" />
+
+            <Button
+                android:id="@+id/createRestaurantButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Create Restaurant"
+                android:textColor="#FFFFFF"
+                android:padding="16dp"
+                android:layout_marginTop="16dp" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
