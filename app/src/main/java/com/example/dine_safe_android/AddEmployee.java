@@ -1,15 +1,20 @@
 package com.example.dine_safe_android;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
@@ -18,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 public class AddEmployee extends AppCompatActivity {
@@ -32,6 +39,11 @@ public class AddEmployee extends AppCompatActivity {
     private EditText phoneEditText;
     private Button saveButton;
     public String restaurantName = "";
+
+    private ListView employeeListView;
+    private ArrayAdapter<String> employeeAdapter;
+    private ArrayList<String> employeeList = new ArrayList<>();
+    private HashMap<String, HashMap<String, String>> employeeDetails = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +61,31 @@ public class AddEmployee extends AppCompatActivity {
         saveButton = findViewById(R.id.saveButton);
 
         // Populate Spinner with roles
-        String[] roles = {"Chef", "Waiter"};
+        String[] roles = {"chef", "waiter"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roles);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         roleSpinner.setAdapter(adapter);
 
         saveButton.setOnClickListener(v -> saveEmployee());
+
+
+        employeeListView = findViewById(R.id.employeeListView);
+        employeeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, employeeList);
+        employeeListView.setAdapter(employeeAdapter);
+
+        fetchEmployees();
+        employeeListView.setOnItemClickListener((parent, view, position, id) -> {
+            String fullUserInfo = employeeList.get(position); // This might be a string like "username-role"
+            String[] parts = fullUserInfo.split("-"); // Split the string by hyphen
+            if (parts.length > 0) {
+                String username = parts[0];
+                username = username.replaceAll("\\s+$", "");
+                showEmployeeDialog(username);
+                //Toast.makeText(this, username, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Invalid user data.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void saveEmployee() {
@@ -143,5 +174,101 @@ public class AddEmployee extends AppCompatActivity {
             return null; // Handle null input
         }
         return input.toLowerCase();
+    }
+    private void fetchEmployees() {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
+        usersRef.orderByChild("restaurant_name").equalTo(restaurantName).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                employeeList.clear();
+                employeeDetails.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String username = snapshot.child("username").getValue(String.class);
+                    if (username != null) {
+                        String name = snapshot.child("name").getValue(String.class);
+                        String phone = snapshot.child("phone").getValue(String.class);
+                        String role = snapshot.child("role").getValue(String.class);
+                        HashMap<String, String> details = new HashMap<>();
+                        details.put("name", name);
+                        details.put("phone", phone);
+                        details.put("role", role);
+                        details.put("username", username);
+                        employeeDetails.put(username, details);
+                        //employeeList.add(name + " (" + role + ")");
+                        employeeList.add(username+" - "+name+ " (" + role + ")");
+                    }
+                }
+                employeeAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(AddEmployee.this, "Failed to load employees.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void showEmployeeDialog(String username) {
+        HashMap<String, String> details = employeeDetails.get(username);
+        if (details == null) return;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_edit_employee, null);
+        builder.setView(dialogView);
+
+        EditText nameEditText = dialogView.findViewById(R.id.dialogNameEditText);
+        EditText phoneEditText = dialogView.findViewById(R.id.dialogPhoneEditText);
+        Spinner roleSpinner = dialogView.findViewById(R.id.dialogRoleSpinner);
+        EditText usernameEditText = dialogView.findViewById(R.id.dialogUsernameEditText);
+        Button updateButton = dialogView.findViewById(R.id.dialogUpdateButton);
+        Button deleteButton = dialogView.findViewById(R.id.dialogDeleteButton);
+
+        nameEditText.setText(details.get("name"));
+        phoneEditText.setText(details.get("phone"));
+        usernameEditText.setText(username);
+        usernameEditText.setEnabled(false); // Username is not editable
+
+        // Setup role spinner
+        ArrayAdapter<String> roleAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"chef", "waiter"});
+        roleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        roleSpinner.setAdapter(roleAdapter);
+        int rolePosition = roleAdapter.getPosition(details.get("role"));
+        roleSpinner.setSelection(rolePosition);
+
+        AlertDialog dialog = builder.create();
+
+        updateButton.setOnClickListener(v -> {
+            // Update logic
+            String newName = nameEditText.getText().toString().trim();
+            String newPhone = phoneEditText.getText().toString().trim();
+            String newRole = roleSpinner.getSelectedItem().toString();
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(username);
+            userRef.child("name").setValue(newName);
+            userRef.child("phone").setValue(newPhone);
+            userRef.child("role").setValue(newRole);
+            dialog.dismiss();
+            Toast.makeText(this, "Employee updated.", Toast.LENGTH_SHORT).show();
+
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+
+        });
+
+        deleteButton.setOnClickListener(v -> {
+            // Delete logic
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(username);
+            userRef.removeValue();
+            dialog.dismiss();
+            Toast.makeText(this, "Employee deleted.", Toast.LENGTH_SHORT).show();
+
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        });
+
+        //cancelButton.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
     }
 }
