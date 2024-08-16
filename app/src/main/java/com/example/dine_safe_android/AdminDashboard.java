@@ -64,8 +64,8 @@ public class AdminDashboard extends AppCompatActivity {
         });
 
         addEmployeeButton.setOnClickListener(v -> {
-            // Handle Add Employee button click
-            // Example: Start a new activity or show a dialog
+            Intent i = new Intent(AdminDashboard.this, AddEmployee.class);
+            startActivity(i);
         });
 
         fireStatsButton.setOnClickListener(v -> {
@@ -81,7 +81,7 @@ public class AdminDashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Clear SharedPreferences
-                SharedPreferences sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();
                 editor.apply();
