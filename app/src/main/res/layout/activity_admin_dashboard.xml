@@ -71,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_marginHorizontal="30dp"
             android:layout_height="wrap_content"
-            android:text="Add Employee"
+            android:text="Manage Staff"
             android:layout_marginTop="16dp"/>
 
         <!-- Fire Stats Button -->

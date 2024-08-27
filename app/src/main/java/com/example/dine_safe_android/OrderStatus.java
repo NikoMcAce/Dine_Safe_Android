@@ -1,6 +1,5 @@
 package com.example.dine_safe_android;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,9 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
-public class ChefDashboard extends AppCompatActivity {
+public class OrderStatus extends AppCompatActivity {
     private String restaurantName;
     private String username;
     private LinearLayout tableList;
@@ -33,7 +30,7 @@ public class ChefDashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_chef_dashboard);
+        setContentView(R.layout.activity_order_status);
 
         tableList = findViewById(R.id.table_list);
 
@@ -46,22 +43,6 @@ public class ChefDashboard extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         restaurantName = sharedPreferences.getString("restaurant_name", "Restaurant Name");
         username = sharedPreferences.getString("username", "Username");
-
-        TextView tvRestaurantName = findViewById(R.id.tvRestaurantName);
-        TextView tvUserName = findViewById(R.id.tvUserName);
-        Button btnLogoutChef = findViewById(R.id.btnLogoutChef);
-        btnLogoutChef.setOnClickListener(v -> {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.clear();
-            editor.apply();
-            Intent intent = new Intent(ChefDashboard.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
-        });
-
-        tvRestaurantName.setText(restaurantName);
-        tvUserName.setText(username);
 
         loadOrders();
     }
@@ -86,7 +67,7 @@ public class ChefDashboard extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(ChefDashboard.this, "Failed to load orders.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderStatus.this, "Failed to load orders.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -116,9 +97,7 @@ public class ChefDashboard extends AppCompatActivity {
 
         TextView foodNameTextView = foodCardView.findViewById(R.id.food_name);
         TextView foodQtyTextView = foodCardView.findViewById(R.id.food_qty);
-        Button readyButton = foodCardView.findViewById(R.id.ready_button);
-
-
+        Button serveButton = foodCardView.findViewById(R.id.ready_button);
 
         String foodName = foodSnapshot.getKey();
         Integer qty = foodSnapshot.child("qty").getValue(Integer.class);
@@ -128,21 +107,21 @@ public class ChefDashboard extends AppCompatActivity {
         foodNameTextView.setText(foodName);
         foodQtyTextView.setText("Qty: " + qty);
 
-        if ("prepared".equals(status)||"served".equals(status)) {
-            readyButton.setVisibility(View.GONE); // Hide the button if already prepared
+        if ("served".equals(status)) {
+            serveButton.setVisibility(View.GONE); // Hide the button if already served
         } else {
-            readyButton.setOnClickListener(v -> markFoodAsPrepared(orderNo, foodName, foodSnapshot.getRef()));
+            serveButton.setText("Serve"); // Change button text to "Serve"
+            serveButton.setOnClickListener(v -> markFoodAsServed(orderNo, foodName, foodSnapshot.getRef()));
         }
 
         foodList.addView(foodCardView);
-
     }
 
-    private void markFoodAsPrepared(String orderNo, String foodName, DatabaseReference foodRef) {
-        foodRef.child("status").setValue("prepared");
-        foodRef.child("prepared_by").setValue(username);
+    private void markFoodAsServed(String orderNo, String foodName, DatabaseReference foodRef) {
+        foodRef.child("status").setValue("served");
+        foodRef.child("served_by").setValue(username);
 
-        Toast.makeText(this, "Marked " + foodName + " as prepared", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Marked " + foodName + " as served", Toast.LENGTH_SHORT).show();
 
         // Reload orders to update the UI
         loadOrders();

@@ -22,17 +22,35 @@
             android:src="@drawable/dine"
         android:scaleType="centerCrop"/>
 
-
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
         <TextView
+            android:layout_marginTop="11dp"
             android:id="@+id/tableNumberTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_gravity="center"
             android:text="Table number : "
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"/>
+
+
+    <TextView
+        android:id="@+id/tableStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Status : "
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"/>
+
+
+</LinearLayout>
+
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
