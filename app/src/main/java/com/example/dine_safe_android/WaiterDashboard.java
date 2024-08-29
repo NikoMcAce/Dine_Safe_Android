@@ -33,6 +33,11 @@ public class WaiterDashboard extends AppCompatActivity {
         Button btnOrderStatus = findViewById(R.id.btnOrderStatus);
         Button btnYourData = findViewById(R.id.btnYourData);
         Button btnLogout = findViewById(R.id.btnLogout);
+        Button btnOrderHistory, btnComplaints;
+
+        // Inside onCreate() method
+        btnOrderHistory = findViewById(R.id.btnOrderHistory);
+        btnComplaints = findViewById(R.id.btnComplaints);
 
         btnTables.setOnClickListener(v -> startActivity(new Intent(WaiterDashboard.this, Waiter_Tables.class)));
         btnOrderStatus.setOnClickListener(v -> startActivity(new Intent(WaiterDashboard.this, OrderStatus.class)));
@@ -54,6 +59,18 @@ public class WaiterDashboard extends AppCompatActivity {
 
         tvRestaurantName.setText(restaurantName); // Set restaurant name from SharedPreferences
         fetchAndDisplayUserName(username, sharedPreferences); // Fetch and display user's name
+
+        // Navigate to OrderHistoryActivity
+        btnOrderHistory.setOnClickListener(v -> {
+            Intent intent = new Intent(WaiterDashboard.this, OrderHistoryActivity.class);
+            startActivity(intent);
+        });
+
+// Navigate to ComplaintsActivity
+        btnComplaints.setOnClickListener(v -> {
+            Intent intent = new Intent(WaiterDashboard.this, ComplaintsActivity.class);
+            startActivity(intent);
+        });
     }
     private void fetchAndDisplayUserName(String username, SharedPreferences sharedPreferences) {
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users").child(username);

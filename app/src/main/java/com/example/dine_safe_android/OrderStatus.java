@@ -104,14 +104,18 @@ public class OrderStatus extends AppCompatActivity {
         String status = foodSnapshot.child("status").getValue(String.class);
 
         // Set food item details
-        foodNameTextView.setText(foodName);
+        //foodNameTextView.setText(foodName);
+        foodNameTextView.setText(foodName + " - " + (status != null ? status : "Preparing"));
+
         foodQtyTextView.setText("Qty: " + qty);
 
-        if ("served".equals(status)) {
-            serveButton.setVisibility(View.GONE); // Hide the button if already served
-        } else {
-            serveButton.setText("Serve"); // Change button text to "Serve"
+        // Only show the "Serve" button if the status is "prepared"
+        if ("prepared".equals(status)) {
+            serveButton.setText("Serve");
+            serveButton.setVisibility(View.VISIBLE); // Ensure the button is visible
             serveButton.setOnClickListener(v -> markFoodAsServed(orderNo, foodName, foodSnapshot.getRef()));
+        } else {
+            serveButton.setVisibility(View.GONE); // Hide the button if status is not "prepared"
         }
 
         foodList.addView(foodCardView);

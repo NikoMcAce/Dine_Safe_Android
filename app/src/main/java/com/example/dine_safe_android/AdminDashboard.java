@@ -69,13 +69,12 @@ public class AdminDashboard extends AppCompatActivity {
         });
 
         fireStatsButton.setOnClickListener(v -> {
-            // Handle Fire Stats button click
-            // Example: Start a new activity or show a dialog
+
         });
 
         salesButton.setOnClickListener(v -> {
-            // Handle Sales button click
-            // Example: Start a new activity or show a dialog
+            Intent i = new Intent(AdminDashboard.this, Sales.class);
+            startActivity(i);
         });
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
