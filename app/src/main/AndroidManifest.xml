@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Dine_Safe_Android"
         tools:targetApi="31">
         <activity
+            android:name=".FireStats"
+            android:exported="false" />
+        <activity
             android:name=".Sales"
             android:exported="false" />
         <activity

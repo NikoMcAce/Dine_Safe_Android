@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/card_background"
+    android:layout_margin="10dp"
+    android:elevation="4dp">
+
+    <TextView
+        android:id="@+id/tvSensorName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sensor Name"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tvCurrentTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="Current Temperature: 0°C"
+        android:textSize="16sp"
+         />
+
+    <TextView
+        android:id="@+id/tvMaxTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Max Temperature: 0°C"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+         />
+
+    <TextView
+        android:id="@+id/tvFlameDetected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Flame Detected: No"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+         />
+
+    <TextView
+        android:id="@+id/tvFireDetected"
+        android:layout_width="wrap_content"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"
+        android:text="Fire Detected: No"
+        android:textSize="16sp"
+         />
+</LinearLayout>

@@ -1,9 +1,12 @@
 package com.example.dine_safe_android;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -69,7 +72,8 @@ public class AdminDashboard extends AppCompatActivity {
         });
 
         fireStatsButton.setOnClickListener(v -> {
-
+            Intent i = new Intent (AdminDashboard.this,FireStats.class);
+            startActivity(i);
         });
 
         salesButton.setOnClickListener(v -> {
@@ -107,9 +111,9 @@ public class AdminDashboard extends AppCompatActivity {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Restaurants/" + restaurantName + "/table_count");
         databaseRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Integer currentTableCount = task.getResult().getValue(Integer.class);
+                String currentTableCount = task.getResult().getValue(String.class);
                 if (currentTableCount != null) {
-                    tableCountEditText.setText(String.valueOf(currentTableCount));
+                    tableCountEditText.setText(currentTableCount);
                 } else {
                     tableCountEditText.setText("0"); // Default value if not set
                 }
@@ -126,8 +130,9 @@ public class AdminDashboard extends AppCompatActivity {
                     // Get the new table count from EditText
                     String tableCountStr = tableCountEditText.getText().toString();
                     try {
-                        int newTableCount = Integer.parseInt(tableCountStr);
-                        if (newTableCount >= 0) {
+                        String newTableCount = tableCountStr;
+                        Log.d(TAG, "NikoMcAce table count : "+Integer.parseInt(newTableCount));
+                        if (Integer.parseInt(newTableCount) > 0) {
                             // Save the new table count to Firebase
                             databaseRef.setValue(newTableCount).addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
