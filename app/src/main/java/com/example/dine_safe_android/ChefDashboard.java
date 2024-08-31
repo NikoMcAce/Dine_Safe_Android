@@ -27,6 +27,7 @@ import org.w3c.dom.Text;
 public class ChefDashboard extends AppCompatActivity {
     private String restaurantName;
     private String username;
+    private FireDetectionManager fireDetectionManager;
     private LinearLayout tableList;
 
     @Override
@@ -64,6 +65,9 @@ public class ChefDashboard extends AppCompatActivity {
         tvUserName.setText(username);
 
         loadOrders();
+
+        fireDetectionManager = new FireDetectionManager(this);
+        fireDetectionManager.checkForFireAndHandle(true);
     }
 
     private void loadOrders() {

@@ -127,7 +127,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
         // Add the card to the orders list
         ordersList.addView(orderCardView);
     }
-    private void generatePDF(String orderNumber, String noOfCustomers, Integer tableNo, Double totalPrice, DataSnapshot orderSnapshot) {
+    public void generatePDF(String orderNumber, String noOfCustomers, Integer tableNo, Double totalPrice, DataSnapshot orderSnapshot) {
         // Fetch the billed date, time, and billed_by
         String billedDate = orderSnapshot.child("billed_date").getValue(String.class);
         String billedTime = orderSnapshot.child("billed_time").getValue(String.class);

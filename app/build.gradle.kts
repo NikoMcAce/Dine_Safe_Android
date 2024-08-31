@@ -27,6 +27,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        getByName("main") {
+            res {
+                srcDirs("src/main/res", "src/main/res/raw")
+            }
+        }
+    }
 }
 
 dependencies {

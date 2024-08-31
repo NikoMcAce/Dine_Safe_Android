@@ -1,6 +1,7 @@
 package com.example.dine_safe_android;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,13 +24,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class MakeOrder extends AppCompatActivity {
-    public String restaurantName = "";
+    public String restaurantName = "",username;
     private LinearLayout menuList;
     private int tableIndex;
+
     private List<OrderItem> orderItemList = new ArrayList<>();
     private List<View> allMenuItems = new ArrayList<>();
     @Override
@@ -50,6 +57,7 @@ public class MakeOrder extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         restaurantName = sharedPreferences.getString("restaurant_name", "Restaurant Name");
+        username = sharedPreferences.getString("username", "Username");
 
         // Fetch the menu from Firebase
         fetchMenuFromFirebase();
@@ -73,6 +81,9 @@ public class MakeOrder extends AppCompatActivity {
         confirmButton.setOnClickListener(v -> {
             showConfirmDialog();
         });
+
+        Button closeTableButton = findViewById(R.id.close_table_button);
+        closeTableButton.setOnClickListener(v -> handleCloseTableClick());
     }
     private void filterMenu(String query) {
         query = query.toLowerCase();
@@ -262,6 +273,7 @@ public class MakeOrder extends AppCompatActivity {
                                         int newQty = currentQty + item.getQuantity(); // Add the new quantity to the current one
                                         foodRef.child("qty").setValue(newQty); // Update the quantity
                                         foodRef.child("unit_price").setValue(unitPrice); // Set the unit price
+                                        foodRef.child("status").setValue(null);
                                     }
 
                                     @Override
@@ -305,5 +317,74 @@ public class MakeOrder extends AppCompatActivity {
             total += price * item.getQuantity();
         }
         return total;
+    }
+
+    // Inside your MakeOrder Activity
+    private void handleCloseTableClick() {
+        if (tableIndex == -1) {
+            Toast.makeText(this, "No table selected.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Get restaurant name from SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String restaurantName = sharedPreferences.getString("restaurant_name", "Restaurant Name");
+
+        // Reference to the orders node in Firebase
+        DatabaseReference ordersRef = FirebaseDatabase.getInstance()
+                .getReference("Restaurants")
+                .child(restaurantName)
+                .child("orders");
+
+        ordersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String orderKey = null;
+
+                // Iterate over orders to find the one corresponding to the selected table number
+                for (DataSnapshot orderSnapshot : dataSnapshot.getChildren()) {
+                    String tableNo = String.valueOf(orderSnapshot.child("table_no").getValue(Integer.class));
+                    String status = orderSnapshot.child("status").getValue(String.class);
+
+                    if (tableNo != null && tableNo.equals(String.valueOf(tableIndex)) && "occupied".equals(status)) {
+                        orderKey = orderSnapshot.getKey();
+                        Toast.makeText(MakeOrder.this, "Order Key is : "+orderKey, Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+
+                if (orderKey != null) {
+                    // Prepare the updates for the order
+                    String billedDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+                    String billedTime = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+
+                    Map<String, Object> updates = new HashMap<>();
+                    updates.put("status", "billed");
+                    updates.put("billed_by", username);
+                    updates.put("billed_date", billedDate);
+                    updates.put("billed_time", billedTime);
+
+                    // Update Firebase
+                    ordersRef.child(orderKey).updateChildren(updates)
+                            .addOnSuccessListener(aVoid -> {
+                                // Redirect to billing activity with order number
+                                Intent intent = new Intent(MakeOrder.this, OrderHistoryActivity.class);
+                                //intent.putExtra("orderKey", orderKey);
+                                startActivity(intent);
+                                Toast.makeText(MakeOrder.this, "Table Closed Successfully", Toast.LENGTH_SHORT).show();
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(MakeOrder.this, "Error updating order status: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
+                } else {
+                    Toast.makeText(MakeOrder.this, "No active order found for this table.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(MakeOrder.this, "Error fetching orders: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

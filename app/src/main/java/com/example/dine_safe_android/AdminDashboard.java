@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AdminDashboard extends AppCompatActivity {
     public String restaurantName="";
+    private FireDetectionManager fireDetectionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,9 @@ public class AdminDashboard extends AppCompatActivity {
         Button addEmployeeButton = findViewById(R.id.addEmployeeButton);
         Button fireStatsButton = findViewById(R.id.fireStatsButton);
         Button salesButton = findViewById(R.id.salesButton);
+
+        fireDetectionManager = new FireDetectionManager(this);
+        fireDetectionManager.checkForFireAndHandle(false);
 
         // Set onClick listeners for buttons
         tableCountButton.setOnClickListener(v -> {

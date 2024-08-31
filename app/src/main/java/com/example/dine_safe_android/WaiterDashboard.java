@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class WaiterDashboard extends AppCompatActivity {
     public String restaurantName = "";
+    private FireDetectionManager fireDetectionManager;
     private TextView tvRestaurantName, tvUserName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,10 @@ public class WaiterDashboard extends AppCompatActivity {
             Intent intent = new Intent(WaiterDashboard.this, ComplaintsActivity.class);
             startActivity(intent);
         });
+
+
+        fireDetectionManager = new FireDetectionManager(this);
+        fireDetectionManager.checkForFireAndHandle(true);
     }
     private void fetchAndDisplayUserName(String username, SharedPreferences sharedPreferences) {
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users").child(username);
