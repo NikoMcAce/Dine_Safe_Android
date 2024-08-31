@@ -3,6 +3,7 @@ package com.example.dine_safe_android;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText loginUsername, loginPassword;
-    private Button loginButton;
+    private Button loginButton,create_restaurant_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,15 @@ public class LoginActivity extends AppCompatActivity {
         loginUsername = findViewById(R.id.loginUsername);
         loginPassword = findViewById(R.id.LoginPassword);
         loginButton = findViewById(R.id.button2);
+        create_restaurant_button = findViewById(R.id.button3);
+
+        create_restaurant_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this,MainActivity.class);
+                startActivity(i);
+            }
+        });
 
         loginButton.setOnClickListener(v -> checkLogin());
     }

@@ -6,27 +6,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context=".LoginActivity">
 
+    <!-- ImageView for the logo, pinned to the top -->
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
+        android:id="@+id/logoImageView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        tools:srcCompat="@drawable/logo" />
+        android:layout_gravity="top|center_horizontal"
+        android:contentDescription="Company Logo"
+        android:scaleType="centerInside"
+        android:src="@drawable/logo" />
 
+    <!-- TextView for Login title -->
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="30sp"
         android:gravity="center"
         android:text="Login" />
 
+    <!-- EditText for Username -->
     <EditText
         android:id="@+id/loginUsername"
         android:layout_width="match_parent"
@@ -37,6 +41,7 @@
         android:inputType="text"
         android:hint="Username" />
 
+    <!-- EditText for Password -->
     <EditText
         android:id="@+id/LoginPassword"
         android:layout_width="match_parent"
@@ -47,12 +52,22 @@
         android:inputType="textPassword"
         android:hint="Password" />
 
+    <!-- Button for Login -->
     <Button
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_marginHorizontal="40dp"
         android:text="Login" />
+
+    <!-- Button for Create a restaurant -->
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="40dp"
+        android:text="Create a restaurant" />
 
 </LinearLayout>

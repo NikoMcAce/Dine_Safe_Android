@@ -21,12 +21,14 @@ import com.google.firebase.database.ValueEventListener;
 public class UsersData extends AppCompatActivity {
     private EditText etName, etPhoneNumber, etRole, etNewPassword;
     private Button btnDeleteAccount, btnDownloadData;
+    private  FireDetectionManager fireDetectionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users_data);
-
+        fireDetectionManager = new FireDetectionManager(this);
+        fireDetectionManager.checkForFireAndHandle(true);
         etName = findViewById(R.id.etName1);
         etPhoneNumber = findViewById(R.id.etPhoneNumber1);
         etRole = findViewById(R.id.etRole1);

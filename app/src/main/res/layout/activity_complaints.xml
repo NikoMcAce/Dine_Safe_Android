@@ -1,10 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ComplaintsActivity">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Dropdown for selecting order number -->
+    <Spinner
+        android:id="@+id/order_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+         />
+
+    <!-- Container for displaying ordered items -->
+    <LinearLayout
+        android:id="@+id/ordered_items_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Text area for writing a complaint -->
+    <EditText
+        android:id="@+id/complaint_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Write your complaint here"
+        android:minHeight="100dp"
+        android:padding="8dp"
+
+        android:layout_marginBottom="16dp"
+        android:gravity="top"
+        android:inputType="textMultiLine" />
+
+    <!-- Submit button -->
+    <Button
+        android:id="@+id/submit_complaint_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit Complaint"
+        android:background="@color/design_default_color_primary"
+        android:textColor="@android:color/white"
+        android:padding="12dp"
+        android:textSize="16sp" />
+
+</LinearLayout>

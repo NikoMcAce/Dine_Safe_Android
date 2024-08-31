@@ -26,6 +26,8 @@ public class Waiter_Tables extends AppCompatActivity {
     public String restaurantName = "";
     String username="";
 
+    private FireDetectionManager fireDetectionManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +112,9 @@ public class Waiter_Tables extends AppCompatActivity {
                 Toast.makeText(Waiter_Tables.this, "Failed to retrieve table count.", Toast.LENGTH_SHORT).show();
             }
         });
+
+        fireDetectionManager = new FireDetectionManager(this);
+        fireDetectionManager.checkForFireAndHandle(true);
     }
 
     private void checkTableStatus(int tableIndex, TextView tableStatusTextView) {

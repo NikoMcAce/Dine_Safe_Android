@@ -25,6 +25,7 @@ public class OrderStatus extends AppCompatActivity {
     private String restaurantName;
     private String username;
     private LinearLayout tableList;
+    private  FireDetectionManager fireDetectionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,9 @@ public class OrderStatus extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        fireDetectionManager = new FireDetectionManager(this);
+        fireDetectionManager.checkForFireAndHandle(true);
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         restaurantName = sharedPreferences.getString("restaurant_name", "Restaurant Name");

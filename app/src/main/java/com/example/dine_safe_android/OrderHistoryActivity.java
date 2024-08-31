@@ -40,6 +40,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
     private String restaurantName;
     private String username, billedBy ;
     private LinearLayout ordersList;
+    private FireDetectionManager fireDetectionManager;
     public interface OnUserNameFetchedListener {
         void onUserNameFetched(String name);
     }
@@ -53,7 +54,8 @@ public class OrderHistoryActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
-
+        fireDetectionManager = new FireDetectionManager(this);
+        fireDetectionManager.checkForFireAndHandle(true);
         ordersList = findViewById(R.id.orders_list);
         TextView tvRestaurantName = findViewById(R.id.tvRestaurantName);
         TextView tvUserName = findViewById(R.id.tvUserName);

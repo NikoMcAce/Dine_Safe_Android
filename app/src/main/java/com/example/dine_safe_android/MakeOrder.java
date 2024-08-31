@@ -37,6 +37,8 @@ public class MakeOrder extends AppCompatActivity {
     private LinearLayout menuList;
     private int tableIndex;
 
+    private  FireDetectionManager fireDetectionManager;
+
     private List<OrderItem> orderItemList = new ArrayList<>();
     private List<View> allMenuItems = new ArrayList<>();
     @Override
@@ -48,6 +50,8 @@ public class MakeOrder extends AppCompatActivity {
         menuList = findViewById(R.id.menu_list);
         SearchView searchMenu = findViewById(R.id.search_menu);
         Button confirmButton = findViewById(R.id.confirm_button);
+        fireDetectionManager = new FireDetectionManager(this);
+        fireDetectionManager.checkForFireAndHandle(true);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
