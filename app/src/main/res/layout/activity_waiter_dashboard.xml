@@ -4,8 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
+    android:background="@drawable/wallpaper"
     android:layout_height="match_parent"
     tools:context=".WaiterDashboard">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,50 +40,202 @@
             android:text="User Name"
             android:gravity="center"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp" />
 
-        <Button
-            android:id="@+id/btnTables"
+        <!-- Card for Tables -->
+        <androidx.cardview.widget.CardView
+            android:layout_marginHorizontal="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tables"
-            android:layout_marginTop="95dp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="8dp">
 
-        <Button
-            android:id="@+id/btnOrderStatus"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/tablesImage"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_table" />
+
+                <Button
+                    android:id="@+id/btnTables"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tables"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Card for Order Status -->
+        <androidx.cardview.widget.CardView
+            android:layout_marginHorizontal="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Order Status"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp">
 
-        <Button
-            android:id="@+id/btnOrderHistory"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/orderStatusImage"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_order_status" />
+
+                <Button
+                    android:id="@+id/btnOrderStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Order Status"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Card for Order History -->
+        <androidx.cardview.widget.CardView
+            android:layout_marginHorizontal="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Order History"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp">
 
-        <Button
-            android:id="@+id/btnComplaints"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/orderHistoryImage"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_order_history" />
+
+                <Button
+                    android:id="@+id/btnOrderHistory"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Order History"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Card for Complaints -->
+        <androidx.cardview.widget.CardView
+            android:layout_marginHorizontal="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Complaints"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp">
 
-        <Button
-            android:id="@+id/btnYourData"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/complaintsImage"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_complaints" />
+
+                <Button
+                    android:id="@+id/btnComplaints"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Complaints"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Card for Your Data -->
+        <androidx.cardview.widget.CardView
+            android:layout_marginHorizontal="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your Data"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp">
 
-        <Button
-            android:id="@+id/btnLogout"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/yourDataImage"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_your_data" />
+
+                <Button
+                    android:id="@+id/btnYourData"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Your Data"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Card for Logout -->
+        <androidx.cardview.widget.CardView
+            android:layout_marginHorizontal="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Logout"/>
+            android:layout_marginBottom="10dp"
+            app:cardCornerRadius="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/logoutImage"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_logout" />
+
+                <Button
+                    android:id="@+id/btnLogout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Logout"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
