@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
     private String username, billedBy ;
     private LinearLayout ordersList;
     private FireDetectionManager fireDetectionManager;
+    private SearchView searchViewOrder;
     public interface OnUserNameFetchedListener {
         void onUserNameFetched(String name);
     }
@@ -57,6 +59,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
         fireDetectionManager = new FireDetectionManager(this);
         fireDetectionManager.checkForFireAndHandle(true);
         ordersList = findViewById(R.id.orders_list);
+        searchViewOrder = findViewById(R.id.searchViewOrder);
         TextView tvRestaurantName = findViewById(R.id.tvRestaurantName);
         TextView tvUserName = findViewById(R.id.tvUserName);
 
@@ -71,9 +74,25 @@ public class OrderHistoryActivity extends AppCompatActivity {
         username = sharedPreferences.getString("username", "Username");
 
         tvRestaurantName.setText(restaurantName);
-        tvUserName.setText("Logged in as: " + username);
+        tvUserName.setText(username);
 
         loadOrderHistory();
+
+        searchViewOrder.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filterOrdersByQuery(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterOrdersByQuery(newText);
+                return false;
+            }
+        });
+
+        loadMaxOrderNumber();
     }
 
     private void loadOrderHistory() {
@@ -241,6 +260,62 @@ public class OrderHistoryActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 listener.onUserNameFetched("Unknown");  // Handle the error scenario
+            }
+        });
+    }
+
+    private void filterOrdersByQuery(String query) {
+        DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference()
+                .child("Restaurants")
+                .child(restaurantName)
+                .child("orders");
+
+        ordersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ordersList.removeAllViews();  // Clear previous views
+
+                for (DataSnapshot orderSnapshot : dataSnapshot.getChildren()) {
+                    String orderNumber = orderSnapshot.getKey();
+                    if (orderNumber != null && orderNumber.contains(query)) {
+                        String status = orderSnapshot.child("status").getValue(String.class);
+                        if ("billed".equals(status)) {
+                            addOrderCard(orderSnapshot);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(OrderHistoryActivity.this, "Failed to load orders.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void loadMaxOrderNumber() {
+        DatabaseReference maxOrderNoRef = FirebaseDatabase.getInstance().getReference()
+                .child("Restaurants")
+                .child(restaurantName)
+                .child("maxorderno");
+
+        maxOrderNoRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Integer maxOrderNumber = dataSnapshot.getValue(Integer.class);
+
+                    if (maxOrderNumber != null) {
+                        searchViewOrder.setQuery(String.valueOf(maxOrderNumber), false);  // Set the query text without submitting
+                        filterOrdersByQuery(String.valueOf(maxOrderNumber));  // Optionally, filter orders immediately based on the max order number
+                    }
+                } else {
+                    Toast.makeText(OrderHistoryActivity.this, "No max order number found.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(OrderHistoryActivity.this, "Failed to load max order number.", Toast.LENGTH_SHORT).show();
             }
         });
     }
