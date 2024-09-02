@@ -149,6 +149,7 @@
 
             <!-- Card for Fire Stats -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/firestatscontainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
@@ -180,6 +181,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/adminfirelogscontainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"

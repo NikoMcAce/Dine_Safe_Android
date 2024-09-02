@@ -16,12 +16,16 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class AdminDashboard extends AppCompatActivity {
     public String restaurantName="";
@@ -38,6 +42,8 @@ public class AdminDashboard extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        checkAndSetVisibility();
 
         // Retrieve restaurant name and admin username from SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
@@ -58,6 +64,8 @@ public class AdminDashboard extends AppCompatActivity {
         Button salesButton = findViewById(R.id.salesButton);
         Button viewComplaints = findViewById(R.id.viewComplaints);
         Button firelogsbutton = findViewById(R.id.firelogsbutton);
+        CardView firestatscontainer = findViewById(R.id.firestatscontainer);
+        CardView adminfirelogscontainer = findViewById(R.id.adminfirelogscontainer);
 
 
         fireDetectionManager = new FireDetectionManager(this);
@@ -166,5 +174,41 @@ public class AdminDashboard extends AppCompatActivity {
                 })
                 .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
                 .show();
+    }
+    private void checkAndSetVisibility() {
+        // Get references to your CardViews
+        CardView firestatscontainer = findViewById(R.id.firestatscontainer);
+        CardView adminfirelogscontainer = findViewById(R.id.adminfirelogscontainer);
+
+        // Get the restaurant name from SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String restaurantName = sharedPreferences.getString("restaurant_name", "Restaurant Name");
+
+        // Reference to the Sensors node in Firebase
+        DatabaseReference sensorsRef = FirebaseDatabase.getInstance().getReference()
+                .child("Restaurants")
+                .child(restaurantName)
+                .child("Sensor");
+
+        sensorsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean node1Exists = dataSnapshot.hasChild("Node1");
+                boolean node2Exists = dataSnapshot.hasChild("Node2");
+                boolean node3Exists = dataSnapshot.hasChild("Node3");
+
+                // If any of the nodes don't exist, set the visibility to GONE
+                if (!node1Exists || !node2Exists || !node3Exists) {
+                    firestatscontainer.setVisibility(View.GONE);
+                    adminfirelogscontainer.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle possible errors
+                Toast.makeText(getApplicationContext(), "Failed to check sensor nodes.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
