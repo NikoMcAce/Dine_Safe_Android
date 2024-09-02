@@ -229,7 +229,7 @@
 
             android:background="@drawable/card_background"
             android:elevation="4dp"
-            android:layout_marginBottom="46dp">
+            >
 
             <TextView
                 android:textColor="@color/white"
@@ -256,7 +256,19 @@
                 android:text="Total income: $0.00"
                 android:textSize="16sp"
                 android:layout_gravity="center_horizontal" />
+
         </LinearLayout>
+        <Button
+            android:layout_marginTop="10dp"
+            android:id="@+id/adminbtnOrderHistory"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="10dp"
+
+            android:layout_height="wrap_content"
+            android:text="Order History ->"
+            android:layout_marginBottom="46dp"/>
+
+
 
     </LinearLayout>
 </ScrollView>

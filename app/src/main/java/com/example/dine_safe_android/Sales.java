@@ -2,10 +2,13 @@ package com.example.dine_safe_android;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -46,6 +49,15 @@ public class Sales extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         restaurantName = sharedPreferences.getString("restaurant_name", "Restaurant Name");
+
+        Button adminbtnOrderHistory = findViewById(R.id.adminbtnOrderHistory);
+        adminbtnOrderHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent (Sales.this,OrderHistoryActivity.class);
+                startActivity(i);
+            }
+        });
 
         // Initialize views
         tvRestaurantName = findViewById(R.id.tvRestaurantName);
