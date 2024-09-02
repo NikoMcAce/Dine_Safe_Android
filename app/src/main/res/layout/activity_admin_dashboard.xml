@@ -35,210 +35,279 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- LinearLayout for Cards -->
-    <LinearLayout
-        android:id="@+id/cardContainer"
+    <!-- ScrollView for Card Container -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
+        android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@+id/adminUsernameTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <!-- Card for Table Count -->
-        <androidx.cardview.widget.CardView
+        <!-- LinearLayout for Cards -->
+        <LinearLayout
+            android:id="@+id/cardContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="8dp">
+            android:orientation="vertical"
+            android:gravity="center">
 
-            <LinearLayout
+            <!-- Card for Table Count -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp">
 
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_table" />
-
-                <Button
-                    android:id="@+id/tableCountButton"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Table Count"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="16dp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:orientation="horizontal"
+                    android:padding="16dp">
 
-        <!-- Card for View Menu -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="8dp">
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_table" />
 
-            <LinearLayout
+                    <Button
+                        android:id="@+id/tableCountButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Table Count"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Card for View Menu -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp">
 
-                <ImageView
-                    android:id="@+id/viewMenuImage"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_menu" />
-
-                <Button
-                    android:id="@+id/viewMenuButton"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="View Menu"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="16dp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:orientation="horizontal"
+                    android:padding="16dp">
 
-        <!-- Card for Manage Staff -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="8dp">
+                    <ImageView
+                        android:id="@+id/viewMenuImage"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_menu" />
 
-            <LinearLayout
+                    <Button
+                        android:id="@+id/viewMenuButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="View Menu"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Card for Manage Staff -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp">
 
-                <ImageView
-                    android:id="@+id/manageStaffImage"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_staff" />
-
-                <Button
-                    android:id="@+id/addEmployeeButton"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Manage Staff"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="16dp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:orientation="horizontal"
+                    android:padding="16dp">
 
-        <!-- Card for Fire Stats -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="8dp">
+                    <ImageView
+                        android:id="@+id/manageStaffImage"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_staff" />
 
-            <LinearLayout
+                    <Button
+                        android:id="@+id/addEmployeeButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Manage Staff"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Card for Fire Stats -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp">
 
-                <ImageView
-                    android:id="@+id/fireStatsImage"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_fire_stats" />
-
-                <Button
-                    android:id="@+id/fireStatsButton"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Fire Stats"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="16dp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:orientation="horizontal"
+                    android:padding="16dp">
 
-        <!-- Card for Sales -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="16dp"
-            app:cardCornerRadius="8dp">
+                    <ImageView
+                        android:id="@+id/fireStatsImage"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_fire_stats" />
 
-            <LinearLayout
+                    <Button
+                        android:id="@+id/fireStatsButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Fire Stats"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp">
 
-                <ImageView
-                    android:id="@+id/salesImage"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_sales" />
-
-                <Button
-                    android:id="@+id/salesButton"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Sales"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="16dp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:orientation="horizontal"
+                    android:padding="16dp">
 
-        <!-- Card for Logout -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="25dp"
-            app:cardCornerRadius="8dp">
+                    <ImageView
+                        android:id="@+id/firelogsimage"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_logs" />
 
-            <LinearLayout
+                    <Button
+                        android:id="@+id/firelogsbutton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Fire Logs"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Card for Sales -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp">
 
-                <ImageView
-                    android:id="@+id/logoutImage"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_logout" />
-
-                <Button
-                    android:id="@+id/logoutButtonAdmin"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Logout"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="16dp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    android:orientation="horizontal"
+                    android:padding="16dp">
 
-    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/salesImage"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_sales" />
+
+                    <Button
+                        android:id="@+id/salesButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sales"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Card for View Complaints -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_complaints" />
+
+                    <Button
+                        android:id="@+id/viewComplaints"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="View Complaints"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Card for Logout -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="25dp"
+                app:cardCornerRadius="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/logoutImage"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_logout" />
+
+                    <Button
+                        android:id="@+id/logoutButtonAdmin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Logout"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

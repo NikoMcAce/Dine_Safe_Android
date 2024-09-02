@@ -56,6 +56,9 @@ public class AdminDashboard extends AppCompatActivity {
         Button addEmployeeButton = findViewById(R.id.addEmployeeButton);
         Button fireStatsButton = findViewById(R.id.fireStatsButton);
         Button salesButton = findViewById(R.id.salesButton);
+        Button viewComplaints = findViewById(R.id.viewComplaints);
+        Button firelogsbutton = findViewById(R.id.firelogsbutton);
+
 
         fireDetectionManager = new FireDetectionManager(this);
         fireDetectionManager.checkForFireAndHandle(false);
@@ -63,6 +66,15 @@ public class AdminDashboard extends AppCompatActivity {
         // Set onClick listeners for buttons
         tableCountButton.setOnClickListener(v -> {
             showTableCountDialog();
+        });
+        viewComplaints.setOnClickListener(v -> {
+            Intent i = new Intent(AdminDashboard.this, ViewComplaints.class);
+            startActivity(i);
+        });
+
+        firelogsbutton.setOnClickListener(v -> {
+            Intent i = new Intent(AdminDashboard.this, FireLogs.class);
+            startActivity(i);
         });
 
         viewMenuButton.setOnClickListener(v -> {

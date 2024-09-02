@@ -51,6 +51,16 @@ public class ChefDashboard extends AppCompatActivity {
         TextView tvRestaurantName = findViewById(R.id.tvRestaurantName);
         TextView tvUserName = findViewById(R.id.tvUserName);
         Button btnLogoutChef = findViewById(R.id.btnLogoutChef);
+        Button chefbtnyourdata = findViewById(R.id.chefbtnyourdata);
+        chefbtnyourdata.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ChefDashboard.this,UsersData.class);
+                startActivity(i);
+
+            }
+        });
+
         btnLogoutChef.setOnClickListener(v -> {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.clear();

@@ -28,6 +28,8 @@ public class Evacuations extends AppCompatActivity {
     private String restaurantName,role;
     private TextView tvRestaurantName, tvPlaceOfFire;
     private ImageView imageView;
+
+    private boolean navigation_flag=true;
     private DatabaseReference databaseReference;
 
     @Override
@@ -74,7 +76,10 @@ public class Evacuations extends AppCompatActivity {
                     showEvacuationImage(placeOfFire);
                 } else {
                     imageView.setImageResource(0);
-                    navigateToDashboard(role);
+                    if (navigation_flag) {
+                        navigation_flag=false;
+                        navigateToDashboard(role);
+                    }
                 }
             }
 
