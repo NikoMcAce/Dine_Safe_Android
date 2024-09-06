@@ -1,6 +1,6 @@
 # DineSafe: Intelligent Restaurant Management with Fire Evacuation Integration
 
-DineSafe is an innovative restaurant management system developed as part of the MSc Computer Science program. This project seamlessly integrates an intelligent mobile app with ESP32 devices for fire detection and evacuation. The system is designed to enhance restaurant operations, providing role-based features for waiters, chefs, and administrators, while prioritizing customer safety during emergencies.
+DineSafe is an innovative restaurant management system developed as part of the MSc Computer Science program by **Raj Davande**. This project seamlessly integrates an intelligent mobile app with ESP32 devices for fire detection and evacuation. The system is designed to enhance restaurant operations, providing role-based features for waiters, chefs, and administrators, while prioritizing customer safety during emergencies.
 
 ## Features
 - **Cloud Integration:** Utilizes Google Firebase for real-time data synchronization and secure login features.
@@ -21,6 +21,6 @@ DineSafe is an innovative restaurant management system developed as part of the 
 - Ethical guidelines in app development and fire evacuation alerts.
 
 ## Resources
-- **Hardware:** Mobile devices both android and IoS, ESP32 devices, testing equipment.
+- **Hardware:** Mobile devices, ESP32 devices, other sensors.
 - **Software:** VsCode, Android Studio, Arduino IDE, PHP server, Google Firebase.
 - **Human Resources:** Supervisor, faculty members, potential collaboration with restaurant owners.
